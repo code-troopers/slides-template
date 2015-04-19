@@ -1,0 +1,11 @@
+= Slide template for Code-Troopers
+
+Basic slide templates for talk given by Code-Troopers
+
+== Setup
+Fork this project, then run `git clone --recursive` to fetch submodules.
+
+== Requirements
+You will need rubygem, haml, asciidoctor, tilt. 
+
+The `build.sh` script installs the prerequisite
