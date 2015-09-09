@@ -513,3 +513,23 @@ a:hover, a:focus {
   -ms-transform-origin: 0 0;
   transform-origin: 0 0;
 }
+
+code.bash{
+	background: transparent;
+	padding: 0;
+	border-radius: 0;
+}
+code{
+background: lightblue;
+    padding: 10px;
+    border-radius: 5px;
+    color: black;
+}
+
+strong{
+font-size: 1.6em;
+    font-weight: normal;
+    color: #729E50;$
+}
+
+

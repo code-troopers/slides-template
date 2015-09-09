@@ -1,17 +1,358 @@
-= Deck.js
+= Du dev à la prod en passant par Jenkins
 :author: Code-Troopers
-:keywords: @codetroopers
+:keywords: @codetroopers @DockerTours
 :email: contact@code-troopers.com
 :backend: deckjs
 :customcss: ct/ct.css
 :customjs: ct/ct.js
-:deckjs_transition: horizontal-slide
+:split:
 :goto:
 :menu:
 :status:
 
-== Slide 1
-Fusce finibus mi at eleifend aliquam. Sed sagittis vestibulum lorem vitae pulvinar. Donec malesuada elit ex. Aenean interdum eu dolor sed semper. In vulputate enim in lectus sagittis, sit amet dignissim augue tempus. Aliquam erat volutpat. Morbi auctor nibh vel ligula ullamcorper, at commodo neque egestas. Mauris at commodo leo. Ut vitae quam felis. Donec vel erat at risus rhoncus sodales. Etiam fermentum, lectus eu interdum feugiat, lacus enim eleifend diam, laoreet consectetur nisi nibh id nibh.
+== Qui sommes-nous ?
+* Benjamin Cousin
+** @bbbenja
 
-== Slide 2
-Integer tincidunt egestas nisi, sit amet fermentum metus blandit ac. Nulla a rhoncus dui, at facilisis nulla. Aenean porta venenatis pulvinar. Morbi eget justo ut sem tempor aliquam. Donec ornare augue quis fringilla aliquam. Fusce est lectus, blandit id placerat sed, facilisis eu arcu. Phasellus semper ut leo sed aliquet. Fusce tincidunt felis eget risus elementum aliquam. Vestibulum rhoncus enim id est auctor, auctor porta eros gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus pharetra vehicula lacus. Sed quis ornare nunc.
+* Cedric Gatay
+** @Cedric_Gatay 
+
+Membres de Code-Troopers
+
+== Code-Troopers
+* Docker
+* Mongo
+* Angular
+* Java
+* Android
+
+== Code-Troopers
+* Navig'Tours
+* Blog
+* Github
+* BBL
+
+[canvas-image="assets/cockpit.jpg"]
+== Retour d'expérience
+
+== Besoins
+Application Java (base JHipster)
+
+* Java 8
+* Mongo 
+* Elasticsearch
+* Git + Gitlab
+* Jenkins
+
+== Workflow
+* Code
+* Push
+* Merge
+* Build
+* Deploy
+* ...
+
+== Old school
+
+**Code**
+
+Premier développeur
+[source, bash]
+----
+git checkout -b feature/XXX
+... work ...
+git commit -a -m "End my feature"
+git push
+----
+
+<<<
+
+**Merge**
+
+Autre développeur
+
+[source, bash]
+----
+git merge feature/XXX
+git tag feature/XXX
+git push
+----
+
+<<<
+
+**Build**
+
+Click jenkins build
+
+[source, bash]
+----
+mvn package
+----
+
+<<<
+
+**Deploy**
+
+Click jenkins deploy
+
+[source, bash]
+----
+scp myapp.war myserver:/home/app1
+ssh myserver /home/app1/deploy.sh
+----
+
+<<<
+
+**Inconvénients**
+
+* Un serveur à configurer
+//version de mongo / java...
+* Environnement de dev pas forcément aligné
+* C/C pour la preprod 
+
+<<<
+
+**Objectif de migration**
+
+* Apprendre Docker
+* Figer les versions des services
+* Mettre en place une démarche DevOps
+
+[canvas-image="assets/new_formula.jpg"]
+== Nouveau procédé
+
+
+== Avec Docker
+
+**Code**
+
+[source, bash]
+----
+git checkout -b feature/XXX
+... work ...
+git commit -a -m "End my feature"
+git push
+----
+
+<<<
+
+**Merge**
+
+* Merge Request GitLab
+* Diff et commentaires
+* Hooks
+
+<<<
+
+**Build**
+
+* Tests automatique via Hook (même des branches)
+* Build automatique de `master`
+
+image:assets/screen-mr.png[]
+// screenshiot avec Tetst Passed / Failed d'une MR
+
+<<<
+
+**Deploy**
+
+* Automatique pour prp
+* Manuel pour prod (click-click)
+
+image:assets/screen-jenkins.png[]
+
+<<<
+
+**Bénéfices**
+
+* Moins d'opérations manuelles en CLI
+* Moins d'erreur d'étapes sautées
+* Validation de la qualité même sur les branches
+
+[canvas-image="assets/docker_cargo.jpg"]
+== Et Docker dans tout ça ?
+
+== Côté Deploy
+* docker-compose décrit la stack
+* utilisation d'images publiques et privées
+* Makefile descriptif des différentes actions:
+   ** deploy prod
+   ** deploy preprod
+
+== Côté Build
+* Build de l'application
+	** Utilisation de slave Jenkins
+	** Archivage du livrable
+* Build de l'image Docker
+	** Copie du livrable de l'app
+	** Dockerfile de l'application
+	** Push vers un registry privé
+
+== Côté Dev
+* Pas d'installations locale
+** Mongo via Docker
+** ElasticSearch via Docker
+* Java / Maven / Grunt par contre en local
+
+
+[canvas-image="assets/iceberg.jpg"]
+== Retour sur la solution
+
+== Pro
+
+**Deploy**
+
+On créée autant d'instance qu'on veut
+
+ * plusieurs niveau de préprod possibles
+ * on peut tester une montée de version facilement
+
+<<<
+
+**Build**
+
+Machine Jenkins non polluée
+
+ * uniquement Docker présent
+ * permet de lancer des tests d'intégration facilement
+
+<<<
+
+**Dev**
+
+Environnement de prod facilement reproductible
+
+Machine de dev non polluée
+
+Coût d'entrée minime pour le nouvel arrivant
+
+== Cons
+
+**Deploy**
+
+* Problème de ports publics exposés
+// * 80080 est moins convivial que 80
+* Gestion des logs
+// stdout + docker
+//* Attention a ne pas utiliser les mêmes volumes de données
+* Problème de redémarrage du serveur
+* Espace disque utilisé important
+
+<<<
+
+**Build**
+
+* Installation d'un registry privé pénible
+* Problème de durée de build
+* Le build se lance en léger différé
+
+<<<
+
+**Dev**
+
+Performances faibles lors du montage de volumes sous Windows/OS X
+
+[canvas-image="assets/tips.jpeg"]
+== Tips
+
+== Tips
+
+**Deploy**
+
+* `jwilder/nginx-proxy` : gestion des virtual hosts
+* driver de logs : `journald` pour le logrotate
+* `--restart=always` : penser à spécifier la politique de restart 
+* `docker-cleanup-volumes` : suppression des volumes orphelins
+* `FROM debian` est plus léger que `FROM ubuntu`
+//125 vs 188
+
+<<<
+
+**Build**
+
+* Monter un volume pour le cache Maven/Gradle
+* http://cedric.gatay.fr/slides-template/docker-jenkins-slave/[Docker Jenkins Slave @ ToursJUG]
+* docker-registry https://code-troopers.com/2015/06/25/InstallDockerRegistry.html
+
+<<<
+
+**Dev**
+
+Ne pas utiliser les montages VirtualBox:
+
+* rsync
+* samba
+* data-volumes
+
+Sous OSX : 
+
+* `docker-osx-dev` : préconfigure boot2docker avec rsync
+
+== Monitoring
+* New Relic : remontée utilisation CPU/IO/Docker
+
+[source, bash]
+------
+docker run -d \
+	--privileged=true --name newrelic 
+	--pid=host \
+	--net=host \
+	-v /sys:/sys \
+	-v /dev:/dev \
+	--restart=always \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	-v /var/log:/var/log:rw \
+	-e NRSYSMOND_license_key=<KEY> \
+	-e NRSYSMOND_logfile=/var/log/nrsysmond.log \
+	newrelic/nrsysmond:latest
+------
+
+== Docker
+
+**Installation Serveur**
+
+* installation du daemon
+
+[source, bash]
+------
+curl -sSL https://get.docker.com/ | sh
+------
+
+* ouverture de l'API Docker à l'extérieur
+
+[source,bash]
+------
+DOCKER_OPTS="-H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock"
+------
+
+
+<<<
+
+**Installation Client**
+
+* La version du client doit être alignée avec celle du serveur
+
+[source,bash]
+-----
+VERSION=1.6.2 curl -o docker https://get.docker.com/builds/Linux/x86_64/docker-$VERSION && chmod +x docker
+export DOCKER_HOST=MY_MACHINE:2375
+./docker ps
+-----
+
+[canvas-image="assets/trooper_dance.jpg"]
+== Avantages CT
+
+== Montée en compétences
+* Migration vers Docker de plusieurs applications
+** Service de synchronisation (Java/Mongo)
+** Service d'identification (Java7)
+** Navig'Tours (Heroku > Docker)
+
+
+== Axes d'améliorations
+* Déploiement zéro downtime
+* Jenkins Docker workflow plugin
+* Docker Swarm 
+
+[canvas-image="assets/questions.jpg"]
+== Questions
