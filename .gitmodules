@@ -3,4 +3,4 @@
 	url = https://github.com/asciidoctor/asciidoctor-backends.git 
 [submodule "deck.js"]
 	path = deck.js
-	url = git://github.com/imakewebthings/deck.js.git
+	url = https://github.com/imakewebthings/deck.js.git
