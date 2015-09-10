@@ -4,3 +4,6 @@
 [submodule "talks/201509-DockerMeetupTours"]
 	path = talks/201509-DockerMeetupTours
 	url = https://github.com/code-troopers/slides-template.git
+[submodule "talks/20150423-androidLibs"]
+	path = talks/20150423-androidLibs
+	url = https://github.com/JorisPotier/slides-template.git
