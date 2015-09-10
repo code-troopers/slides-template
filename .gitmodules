@@ -1,3 +1,6 @@
 [submodule "cgatay"]
 	path = cgatay
 	url = https://github.com/CedricGatay/slides-template.git
+[submodule "talks/201509-DockerMeetupTours"]
+	path = talks/201509-DockerMeetupTours
+	url = https://github.com/code-troopers/slides-template.git
