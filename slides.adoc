@@ -1,6 +1,7 @@
-= Deck.js
-:author: Code-Troopers
-:keywords: @codetroopers
+= Tour d'horizon de JavaEE
+:encoding: UTF-8
+:author: Cedric Gatay
+:keywords: @Cedric_Gatay
 :email: contact@code-troopers.com
 :backend: deckjs
 :customcss: ct/ct.css
@@ -9,9 +10,279 @@
 :goto:
 :menu:
 :status:
+:source-highlighter: pygments
+:split:
 
-== Slide 1
-Fusce finibus mi at eleifend aliquam. Sed sagittis vestibulum lorem vitae pulvinar. Donec malesuada elit ex. Aenean interdum eu dolor sed semper. In vulputate enim in lectus sagittis, sit amet dignissim augue tempus. Aliquam erat volutpat. Morbi auctor nibh vel ligula ullamcorper, at commodo neque egestas. Mauris at commodo leo. Ut vitae quam felis. Donec vel erat at risus rhoncus sodales. Etiam fermentum, lectus eu interdum feugiat, lacus enim eleifend diam, laoreet consectetur nisi nibh id nibh.
+== Agenda
+ * Java vs Java EE
+ * Vue d'ensemble
+ * Services
+      ** Java Persistence API
+      ** Stateless
+      ** Stateful
+      ** CDI
+      ** Webservices
+ * Exemple pratique
 
-== Slide 2
-Integer tincidunt egestas nisi, sit amet fermentum metus blandit ac. Nulla a rhoncus dui, at facilisis nulla. Aenean porta venenatis pulvinar. Morbi eget justo ut sem tempor aliquam. Donec ornare augue quis fringilla aliquam. Fusce est lectus, blandit id placerat sed, facilisis eu arcu. Phasellus semper ut leo sed aliquet. Fusce tincidunt felis eget risus elementum aliquam. Vestibulum rhoncus enim id est auctor, auctor porta eros gravida. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus pharetra vehicula lacus. Sed quis ornare nunc.
+== Java vs JavaEE
+
+== Contexte
+
+Java
+
+ * langage objet
+ * v1.0 en 1995 / v8 en 2014
+ * != Javascript
+
+== Flashback
+
+1995, internet balbutiant, cible applications lourdes
+
+Concurrence des MFC / C++
+
+Promesse du Write Once Run Anywhere
+
+  * machine virtuelle 
+  * "assembleur universel"
+
+Lenteurs de la machine
+
+== Évolutions
+
+ * 1.1 : xx classes
+ * 1.2 : xx classes
+ * 1.3 : xx classes
+ * 1.4 : xx classes
+ * 1.5 : Generics
+ * 1.6 : 
+ * 7 : Invokedynamics
+ * 8 : Lambda
+
+== Version entreprise
+
+ * séduire les entreprises
+ * répondre à la montée d'internet
+ * rationaliser les developpements
+
+== Normalisation 
+
+ * 1999 : J2EE 1.2 (10 specs)
+ * 2001 : J2EE 1.3 (13 specs)
+ * 2003 : J2EE 1.4 (20 specs)
+ * 2006 : JavaEE 5 (23 specs)
+ * 2009 : JavaEE 6 (28 specs)
+
+== Principe
+
+ * Ecriture d'une JSR
+ * Fourniture du TCK
+ * Ecriture d'une RI
+
+== Pourquoi populaire
+
+ * stations de dev Windows
+ * serveurs Linux
+
+-> pas d'adherences à l'os
+
+ * specs publiques, concurrence des serveurs
+ * FOSS : culture open source importante
+
+== Services 
+
+ * ensemble normé de services
+ * xxx dans JavaEE 7
+ * tour d'horizon des plus utilisés
+ * philosophie n-tiers
+ * meta programmation par annotations
+ * convention over configuration
+
+
+== Architecture n-tiers
+
+ * applications d'envergures
+ * équipes multiples
+ * responsabilités partagées
+ 
+<<< 
+
+ * MVC
+ ** Model
+ ** View
+ ** Controller
+
+<<< 
+
+ * Mobile/Rich client 
+ ** REST endpoints
+ ** Model
+ ** Controller
+
+== Annotations
+
+ * Besoin d'ajouter des informations au code
+ * Utilisation intensive de XML
+ * Ajout d'annotations (introduction Java 1.5)
+
+[source,xml]
+-----
+<servlet-mapping>
+//TODO BLAAAA
+</servlet-mapping>
+-----
+
+[source,java]
+----
+@WebServlet
+public class HelloEPUT{
+}
+----
+
+== Convention over configuration
+
+ * à l'utilisation des _patterns_ sont apparus
+ * simplification de l'utilisation en les adoptant par défaut
+ * possibilité de redéfinition manuelle
+
+// SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
+
+== Premiers pas
+
+ * destiné principalement au monde web
+ * gère la réponse simple à une requête HTTP
+
+[source,java]
+-----
+@WebServlet
+public class MyServlet{
+  static int count[] = new int[]{ 0,0};
+  public void doGet(){  
+      count[0]++;
+  }
+
+  public void doPost(){
+     count[1]++;
+  }
+
+  private writeResponse(){
+    response.write("Get count : " + count[0]);
+    response.write("Post count : " + count[1]);
+  }
+}
+-----
+
+== Packaging
+
+ * format d'archives en *AR
+   ** WAR : Web Archive
+   ** JAR : Java Archive
+   ** EAR : Enterprise Archive
+
+ * Éxecution gérée par le serveur d'application
+
+== Serveurs d'application
+ 
+ * éxecute le code métier
+ * fournit des services
+ ** gestion des transactions
+ ** gestion des sources de données
+ ** mise en place de cluster
+ ** remontée d'informations 
+ ** gestion des logs
+ ** gestion des utilisateurs 
+
+== Java Persistence API
+
+ * ORM
+ * Gestion des transactions (Java Transaction API)
+ * Mise en cache
+ * Agnostique du SGBD 
+
+// etoffer avec un exemple ´a l'ancienne'
+[source,sql]
+-----
+SELECT name,email FROM users;
+-----
+
+[source,java]
+-----
+@Entity("users")
+class User{
+ String name;
+ String email;
+}
+class UserService{
+ List<User> all(){
+  return em.getResultList("SELECT u FROM User");
+ } 
+}
+-----
+
+== CDI
+
+ * mecanisme d'IoC, central a JavaEE
+ * definition d'un `scopeˋ, de l'association a des services
+ * declaration des dependances
+
+== Stateless
+
+ * Le container manage le cycle de vie des objets
+ * Certains peuvent être recyclés
+
+== Stateful 
+ 
+ * le container gere l'etat et l'associe a un client
+ * panier d'achat e-commerce
+
+
+== Webservices
+
+ * déclaration des ressources
+ * REST / SOAP
+ * assemblage transparent avec les autres services
+
+== Ecosysteme
+
+== Serveurs d'application
+
+ //list goes here
+ * Wildfly
+ * TomEE
+ * Jboss AS
+ * Websphere
+ * Weblogic
+
+== FOSS
+
+ //list goes here
+ * Eclipse
+ * Apache
+ * Codehaus
+ * Github
+
+=== Projets notables
+ 
+ * Maven
+ * Hibernate
+ * AspectJ
+ * Jetty
+ * Tomcat
+
+== "Concurrents"
+
+ // list goes here
+ * Spring
+ * Play! Framework
+ * Grails
+ * Ruby On Rails
+ * Symfony
+
+
+== TP + CC
+
+ * mini projet à 2 -> 4
+ * base de travail commune à tous
+ ** squelette fonctionnel
+ ** sujet identique
+ * notation à l'issue de la dernière séance
+
