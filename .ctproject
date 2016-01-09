@@ -1,2 +1,4 @@
 # Generated for use with https://github.com/code-troopers/ct
+build='docker build -t ct-slides .'
 run='docker run -it --rm -e LC_ALL=en_US.UTF-8 -v $(pwd):/documents/ -p 9000:9000 -p 9010:9010 -p 35729:35729 codetroopers/ct-slides'
+runl='docker run -it --rm -v $(pwd)/documents:/documents/ -p 3000:3000 -p 3001:3001 ct-slides'
