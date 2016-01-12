@@ -2,7 +2,7 @@
 
 module.exports = {
     'images': {
-        'src': 'documents/images/**/*',
+        'src': 'documents/images/**',
         'destSrc': 'documents/images',
         'dest': 'public/images'
     },
