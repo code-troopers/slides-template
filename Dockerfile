@@ -31,7 +31,7 @@ WORKDIR /src
 RUN mkdir -p /src/deck-addons/split \
     && curl "https://raw.githubusercontent.com/houqp/deck.split.js/master/deck.split.js" -o /src/deck-addons/split/deck.split.js
 
-ADD asciidoctor-backends /src/asciidoctor-backends
+ADD asciidoctor-deck.js /src/asciidoctor-deck.js
 ADD documents /documents
 
 ENV LC_ALL en_US.UTF-8

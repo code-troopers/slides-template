@@ -11,7 +11,7 @@ var config = require('../config'),
  * Task to build asciidoctor sildes
  */
 gulp.task('asciidoc-build', function (cb) {
-    var jekyllArgs = ['documents/slides.adoc', '-T', 'asciidoctor-backends/haml', '-o','public/index.html'];
+    var jekyllArgs = ['documents/slides.adoc', '-T', 'asciidoctor-deck.js/templates/haml', '-o','public/index.html'];
 
     return cp.spawn('asciidoctor', jekyllArgs, {stdio: 'inherit'}).on("close", cb);
 });
