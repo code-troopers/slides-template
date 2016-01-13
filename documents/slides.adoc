@@ -150,11 +150,14 @@ image::images/ee-roadmap.png[]
 == Version entreprise
 
  * applications visant à être
+  ** complexes
   ** fiables
-  ** portables
-  ** sécurisés
- * répondre à la montée d'internet
+  ** interconnectées
+  ** sécurisées
+ * conçu pour répondre à la montée d'internet
  * rationaliser les développements
+  ** DRY
+  ** maîtrise des coûts
 
 == Serveurs d'application
 
@@ -212,8 +215,8 @@ image::images/ee-roadmap.png[]
 == Annotations
 
  * Besoin d'ajouter des informations au code
- * Utilisation intensive de XML
- * Ajout d'annotations (introduction Java 1.5)
+ * Utilisation intensive de XML (pre Java EE 6)
+ * Configuration par annotation (Java EE 6)
 
 [source,xml]
 -----
@@ -242,25 +245,31 @@ public class HelloEPUT{
  * destiné principalement au monde web
  * gère la réponse simple à une requête HTTP
 
+<<<
+
 [source,java]
 -----
-@WebServlet
-public class MyServlet{
-  static int count[] = new int[]{ 0,0};
-  public void doGet(){
-      count[0]++;
-  }
-
-  public void doPost(){
-     count[1]++;
-  }
-
-  private writeResponse(){
-    response.write("Get count : " + count[0]);
-    response.write("Post count : " + count[1]);
-  }
-}
+include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
 -----
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
+-----
+
+<<<
+
+A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet/
+
+
+== Cycle de travail
+
+ * Implementation
+ * Compilation
+ * Packaging
+ * Déploiement
 
 == Packaging
 
@@ -326,8 +335,25 @@ class UserService{
  * le container gere l'etat et l'associe a un client
  * panier d'achat e-commerce
 
-== JSP / JSF
-//TODO talk about these as they are in the specs
+== Servlet
+
+ * bas niveau
+ * très utilisées
+ * traite les requêtes HTTP
+
+/!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
+
+== JavaServer Pages
+
+ * ensemble d'outils pour décrire une page HTML
+ * écriture de XML
+
+== JavaServer Faces
+
+ * écriture orientée composants
+ ** réutilisabilité
+ ** composition de comportement
+ * support des technologies "modernes"
 
 == Webservices
 
