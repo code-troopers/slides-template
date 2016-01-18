@@ -12,6 +12,7 @@
 :status:
 :source-highlighter: pygments
 :split:
+:imagesdir: ./images
 
 == Agenda
  * Java vs Java EE
@@ -24,6 +25,41 @@
       ** Webservices
  * Exemple pratique
 
+== Forewords
+
+== Cedric Gatay
+[cols="3a,1a"]
+|===
+|
+* \http://code-troopers.com
+* \c.gatay@code-troopers.com
+* @Cedric_Gatay
+* \https://github.com/CedricGatay 
+* \https://github.com/code-troopers
+|image::profile.jpeg[]
+
+|
+[width="75%", cols="3*"]
+!===
+!image:navigtours-logo.png[] 
+!image:aucard.jpg[] 
+!image:srmvision-logo.png[]
+!image:books.png[]
+!image:eput.png[]
+a!//
+!===
+|image::logo_text.png[]
+|===
+
+
+== Disclaimer
+
+ * JavaEE est très vaste
+ * JavaEE7 @ PacktPub : 496 pages
+
+[[JavaEE7Packt]]
+image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[role=right_picture]
+
 == Java vs JavaEE
 
 == Contexte
@@ -34,8 +70,14 @@ Java
  * v1.0 en 1995 / v8 en 2014
  * != Javascript
 
-== Flashback
+
 //TODO flashback the game canvas image
+[canvas-image=images/flashback.png]
+== Flashback
+[.canvas-caption, position=center-up]
+Flashback
+
+== Flashback
 
 1996, internet balbutiant, cible applications lourdes
 
@@ -145,7 +187,7 @@ Lenteurs de la machine
  * 2016?: JavaEE 8
 
 [[ee-roadmap]]
-image::images/ee-roadmap.png[]
+image::ee-roadmap.png[]
 
 == Version entreprise
 
@@ -156,7 +198,7 @@ image::images/ee-roadmap.png[]
   ** sécurisées
  * conçu pour répondre à la montée d'internet
  * rationaliser les développements
-  ** DRY
+  ** **D**on't **R**epeat** **Y**ourself
   ** maîtrise des coûts
 
 == Serveurs d'application
@@ -281,18 +323,44 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
  * Exécution gérée par le serveur d'application
 
 
-== Java Persistence API
+== Stockage des données
 
- * ORM
- * Gestion des transactions (Java Transaction API)
- * Mise en cache
+*Comment passer du monde relationnel au monde objet ?*
+
+ * **O**bject **R**elational **M**apper
+ * Association entre objets et tables
+
+-> facilité d'utilisation et portabilité
+
+<<<
+
+*Java Persistence API*
+
+ * __ORM__
+ * Gestion des transactions (**J**ava **T**ransaction **A**PI)
+ * Langage de requêtage spécifique (**J**ava **P**ersistence **Q**uery **L**anguage)
  * Agnostique du SGBD
 
+<<<
+
 // etoffer avec un exemple ´a l'ancienne'
-[source,sql]
+[source,java]
 -----
-SELECT name,email FROM users;
+//acquire a connection to your DB in connection var
+Statement stmt = connection.createStatement();
+ResultSet rs = stmt.executeQuery("SELECT name,email FROM users;");
+while(rs.next()){
+	 user = new User(
+		rs.getString("name"), 
+		rs.getString("email")
+	 );
+	// do what you want with your user object
+}
+rs.close();
+//need to nest into try/catch/finally and close connection too
 -----
+
+<<<
 
 [source,java]
 -----

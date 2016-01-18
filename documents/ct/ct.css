@@ -513,3 +513,8 @@ a:hover, a:focus {
   -ms-transform-origin: 0 0;
   transform-origin: 0 0;
 }
+.right_picture{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
