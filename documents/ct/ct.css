@@ -517,4 +517,5 @@ a:hover, a:focus {
     position: absolute;
     right: 5px;
     top: 5px;
+    max-width:50%;
 }

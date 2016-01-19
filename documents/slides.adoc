@@ -132,7 +132,7 @@ Lenteurs de la machine
 
 <<<
 
- * J2SE 5.0 : 2004,
+ * J2SE 5.0 : 2004
     ** Generics
     ** Annotations
     ** enum
@@ -187,7 +187,7 @@ Lenteurs de la machine
  * 2016?: JavaEE 8
 
 [[ee-roadmap]]
-image::ee-roadmap.png[]
+image::ee-roadmap.png[role=right_picture]
 
 == Version entreprise
 
@@ -196,9 +196,12 @@ image::ee-roadmap.png[]
   ** fiables
   ** interconnectées
   ** sécurisées
+
+<<<
+
  * conçu pour répondre à la montée d'internet
  * rationaliser les développements
-  ** **D**on't **R**epeat** **Y**ourself
+  ** **D**on't **R**epeat **Y**ourself
   ** maîtrise des coûts
 
 == Serveurs d'application
@@ -211,22 +214,6 @@ image::ee-roadmap.png[]
  ** remontée d'informations
  ** gestion des logs
  ** gestion des utilisateurs
-
-== Process de normalisation
-
- * Ecriture d'une JSR
- * Fourniture du TCK
- * Ecriture d'une RI
-
-== Pourquoi est-ce populaire ?
-
- * stations de dev Windows
- * serveurs Linux
-
--> peu d'adhérences à l'os
-
- * specs publiques, concurrence des serveurs
- * FOSS : culture open source importante
 
 == Concepts
 
@@ -247,6 +234,9 @@ image::ee-roadmap.png[]
  ** View
  ** Controller
 
+[[mvc-chart]]
+image::mvc-diagram.png[role=right_picture]
+
 <<<
 
  * Mobile/Rich client
@@ -258,7 +248,7 @@ image::ee-roadmap.png[]
 
  * Besoin d'ajouter des informations au code
  * Utilisation intensive de XML (pre Java EE 6)
- * Configuration par annotation (Java EE 6)
+ * Configuration par annotations (Java EE 6)
 
 [source,xml]
 -----
@@ -305,7 +295,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags
 
 A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet/
 
-
+//TODO probably move this at the end of the theorical part
 == Cycle de travail
 
  * Implementation
@@ -316,9 +306,9 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
 == Packaging
 
  * format d'archives en *AR
-   ** WAR : Web Archive
-   ** JAR : Java Archive
-   ** EAR : Enterprise Archive
+   ** WAR : **W**eb **AR**chive
+   ** JAR : **J**ava **AR**chive
+   ** EAR : **E**nterprise **AR**chive
 
  * Exécution gérée par le serveur d'application
 
@@ -376,13 +366,89 @@ class UserService{
 }
 -----
 
+== Dépendances entre composants
 
-== CDI
+ * le découpage en tiers introduit des dépendances
 
- * mecanisme d'IoC, central a JavaEE
- * definition d'un `scopeˋ, de l'association a des services
- * declaration des dependances
- * Hollywood principle
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=class]
+-----
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserServiceNoIoC.java[tags=ctor]
+-----
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=class]
+-----
+
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.java[tags=ctor]
+-----
+
+<<<
+ 
+*Problèmes*
+ 
+ * enchaînement des `new`
+    ** création pas toujours triviale des dépendances
+ * aucun recyclage des objets
+
+-> beaucoup de code inutile
+
+<<<
+
+*Inversion Of Control*
+
+ * **C**ontext and **D**ependency **I**njection
+ * mécanisme d'IoC, central à JavaEE
+ * définition d'un `scopeˋ, de l'association à des services
+ * déclaration des dépendances
+ * le serveur d'application fait le reste
+
+[canvas-image=images/hollywood.jpg]
+== Hollywood principle ==
+[.canvas-caption,center top]
+"Don't call us, we'll call you !"
+
+== Context and Dependency Injection
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
+-----
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
+-----
+
+<<<
+
+ * `@Inject` demande l'injection
+ * `@Produces` permet de mettre un objet dans le cycle d'injection
+
+<<< 
+
+*Notion de `scope`*
+ 
+ * Cycles de vies différents selon l'utilisation
+ ** `@ApplicationScoped` vit toute l'application
+ ** `@SessionScoped` vit toute la session utilisateur
+ ** `@RequestScoped` vit la durée de la requête utilisateur
 
 == Enterprise Java Bean
 
@@ -428,6 +494,23 @@ class UserService{
  * déclaration des ressources
  * REST / SOAP
  * assemblage transparent avec les autres services
+
+== Process de normalisation
+
+ * Ecriture d'une JSR
+ * Fourniture du TCK
+ * Ecriture d'une RI
+
+== Pourquoi est-ce populaire ?
+
+ * stations de dev Windows
+ * serveurs Linux
+
+-> peu d'adhérences à l'os
+
+ * specs publiques, concurrence des serveurs
+ * FOSS : culture open source importante
+
 
 == Ecosysteme
 
@@ -478,3 +561,4 @@ class UserService{
 [bibliography]
 
 - [[ee-roadmap]] http://blog.eisele.net/2013/06/javaee7-is-final.html
+- [[mvc-chart]] https://netbeans.org/kb/docs/javaee/ecommerce/design.html
