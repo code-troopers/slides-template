@@ -270,32 +270,6 @@ public class HelloEPUT{
  * simplification de l'utilisation en les adoptant par défaut
  * possibilité de redéfinition manuelle
 
-// SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
-
-== Premiers pas
-
- * destiné principalement au monde web
- * gère la réponse simple à une requête HTTP
-
-<<<
-
-[source,java]
------
-include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
------
-
-<<<
-
-[source,java]
------
-include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
------
-
-<<<
-
-A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet/
-
-//TODO probably move this at the end of the theorical part
 == Cycle de travail
 
  * Implementation
@@ -459,15 +433,26 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
   ** avec état
   ** singletons
 
-== Stateless
+== Sans état
 
- * Le container manage le cycle de vie des objets
- * Certains peuvent être recyclés
+ * annotation `@Stateless`
+ * objets pouvant être partagés
 
-== Stateful
+*Exemple* : récupération des promotions du jour
 
- * le container gere l'etat et l'associe a un client
- * panier d'achat e-commerce
+== Avec état
+
+ * annotation `@Stateful`
+ * le container gère l'état et l'associe à un client
+
+*Exemple* : panier d'achat e-commerce
+
+== Singleton
+
+ * annotation `@Singleton`
+ * une seule instance partagée
+
+*Exemple* : compteur de visiteurs
 
 == Servlet
 
@@ -494,6 +479,34 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
  * déclaration des ressources
  * REST / SOAP
  * assemblage transparent avec les autres services
+
+// SLIDE BREAK - ENOUGH TALKING, ALL ACTIONS
+
+== Premiers pas
+
+* destiné principalement au monde web
+* gère la réponse simple à une requête HTTP
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=class]
+-----
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/MyServlet.java[tags=get]
+-----
+
+<<<
+
+A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet/
+
+//TODO probably move this at the end of the theorical part
+
 
 == Process de normalisation
 
