@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package com.codetroopers.eput.domain;
+package com.codetroopers.eput.services;
 
-import com.codetroopers.eput.domain.entities.User;
+import com.codetroopers.eput.exceptions.PriceInvalidException;
 
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import java.util.List;
+import javax.ejb.Singleton;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
- * Created by cgatay on 19/01/16.
+ * Created by cgatay on 01/02/16.
  */
-//tag::class[]
-@Stateless
-public class UserDAO {
-    @Inject
-    EntityManager em;
+@Singleton
+@ApplicationScoped
+public class ItemPriceService {
 
-    //tag::allMethod[]
-    public List<User> all(){
-        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+    public void checkPrice(String item) throws PriceInvalidException {
+        if ("yoda".equalsIgnoreCase(item)){
+            throw new PriceInvalidException();
+        }
     }
-    //end::allMethod[]
 }
-//end::class[]

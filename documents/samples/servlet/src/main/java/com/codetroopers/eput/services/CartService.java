@@ -14,28 +14,34 @@
  * limitations under the License.
  */
 
-package com.codetroopers.eput.domain;
+package com.codetroopers.eput.services;
 
-import com.codetroopers.eput.domain.entities.User;
-
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by cgatay on 19/01/16.
+ * Created by cgatay on 01/02/16.
  */
-//tag::class[]
-@Stateless
-public class UserDAO {
-    @Inject
-    EntityManager em;
+@Stateful
+@SessionScoped
+public class CartService implements Serializable {
 
-    //tag::allMethod[]
-    public List<User> all(){
-        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+    @Inject
+    ItemPriceService itemPriceService;
+
+    private List<String> cartContent;
+
+    public CartService() {
+        this.cartContent = new ArrayList<>();
     }
-    //end::allMethod[]
+
+    public List<String> addItemToCart(String item) {
+        itemPriceService.checkPrice(item);
+        this.cartContent.add(item);
+        return this.cartContent;
+    }
 }
-//end::class[]

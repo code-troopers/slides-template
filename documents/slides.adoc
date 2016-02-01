@@ -57,6 +57,7 @@ a!//
  * JavaEE est très vaste
  * JavaEE7 @ PacktPub : 496 pages
 
+
 [[JavaEE7Packt]]
 image::1496_6640EN_Java%20EE%207%20Web%20Application%20Development.jpg[role=right_picture]
 
@@ -436,7 +437,8 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 == Sans état
 
  * annotation `@Stateless`
- * objets pouvant être partagés
+ * objets pouvant être réutilisés -> Thread Safe
+ * peut être partagé par plusieurs utilisateurs
 
 *Exemple* : récupération des promotions du jour
 
@@ -444,6 +446,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 
  * annotation `@Stateful`
  * le container gère l'état et l'associe à un client
+ * contient des données propres à l'utilisateur
 
 *Exemple* : panier d'achat e-commerce
 
@@ -451,6 +454,7 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 
  * annotation `@Singleton`
  * une seule instance partagée
+ * doit être le même pour tous les utilisateurs
 
 *Exemple* : compteur de visiteurs
 
@@ -525,11 +529,12 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
  * FOSS : culture open source importante
 
 
-== Ecosysteme
+== Ecosystème
 
 == Serveurs d'application
 
  //list goes here
+
  * Wildfly
  * TomEE
  * Jboss AS
@@ -539,12 +544,13 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
 == FOSS
 
  //list goes here
+
  * Eclipse
  * Apache
  * Codehaus
  * Github
 
-=== Projets notables
+== Projets notables
 
  * Maven
  * Hibernate
@@ -555,6 +561,7 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
 == "Concurrents"
 
  // list goes here
+
  * Spring
  * Play! Framework
  * Grails
@@ -568,6 +575,7 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
  * base de travail commune à tous
  ** squelette fonctionnel
  ** sujet identique
+ ** 1 TP -> 1 ajout fonctionnel
  * notation à l'issue de la dernière séance
 
 == Références

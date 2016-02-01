@@ -16,9 +16,10 @@
 
 package com.codetroopers.eput;
 
-import com.codetroopers.eput.domain.UserDAO;
-import com.codetroopers.eput.services.UserServiceNoIoC;
+import com.codetroopers.eput.services.CartService;
+import com.codetroopers.eput.services.UUIDService;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,28 +31,27 @@ import java.io.IOException;
  * Created by cgatay on 13/01/16.
  */
 //tag::class[]
-@WebServlet(urlPatterns = "/users")
-public class UserServletNoIoC extends HttpServlet{
+@WebServlet(urlPatterns = "/ejb/stateless")
+public class StatelessServlet extends HttpServlet{
 
-    UserServiceNoIoC userService;
-
-    //tag::ctor[]
-    public UserServletNoIoC() {
-        userService = new  UserServiceNoIoC(new UserDAO());
-    }
-    //end::ctor[]
+    @Inject
+    UUIDService uuidService;
+    @Inject
+    CartService cartService;
 
     @Override
     //tag::get[]
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        userService.all().forEach(u ->{
-            try {
-                resp.getWriter().println(u.name + " - " + u.email);
-            } catch (IOException e) {
-                //don't ever do this
-            }
-        });
+        doStatelessThings(resp);
+        resp.getWriter().flush();
     }
     //end::get[]
+
+    //tag::stateful[]
+    private void doStatelessThings(HttpServletResponse resp) throws IOException {
+        resp.getWriter().println("Stateless " + uuidService.makeUUID());
+    }
+    //end::stateful[]
+
 }
 //end::class[]

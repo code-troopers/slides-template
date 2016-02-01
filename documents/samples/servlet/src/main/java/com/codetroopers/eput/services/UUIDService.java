@@ -14,28 +14,18 @@
  * limitations under the License.
  */
 
-package com.codetroopers.eput.domain;
-
-import com.codetroopers.eput.domain.entities.User;
+package com.codetroopers.eput.services;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import java.util.List;
+import java.util.UUID;
 
 /**
- * Created by cgatay on 19/01/16.
+ * Created by cgatay on 01/02/16.
  */
-//tag::class[]
 @Stateless
-public class UserDAO {
-    @Inject
-    EntityManager em;
+public class UUIDService {
 
-    //tag::allMethod[]
-    public List<User> all(){
-        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+    public String makeUUID(){
+        return UUID.randomUUID().toString();
     }
-    //end::allMethod[]
 }
-//end::class[]
