@@ -1,3 +1,4 @@
+/*@import "asciidoctor.css";*/
 @charset "UTF-8";
 /* Resets and base styles from HTML5 Boilerplate */
 div, span, object, iframe,
@@ -555,3 +556,15 @@ a:hover, a:focus {
 .colist{
   padding-bottom: 1em;
 }
+
+th.tableblock.halign-left, td.tableblock.halign-left { text-align: left; }
+
+th.tableblock.halign-right, td.tableblock.halign-right { text-align: right; }
+
+th.tableblock.halign-center, td.tableblock.halign-center { text-align: center; }
+
+th.tableblock.valign-top, td.tableblock.valign-top { vertical-align: top; }
+
+th.tableblock.valign-bottom, td.tableblock.valign-bottom { vertical-align: bottom; }
+
+th.tableblock.valign-middle, td.tableblock.valign-middle { vertical-align: middle; }
