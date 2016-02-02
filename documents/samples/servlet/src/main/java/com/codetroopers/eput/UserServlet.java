@@ -34,7 +34,7 @@ import java.io.IOException;
 public class UserServlet extends HttpServlet{
 
     @Inject
-    UserService userService;
+    UserService userService; // <1>
 
     @Override
     //tag::get[]

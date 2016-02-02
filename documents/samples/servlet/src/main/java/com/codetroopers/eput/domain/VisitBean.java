@@ -28,29 +28,31 @@ import java.util.logging.Logger;
 /**
  * Created by cgatay on 01/02/16.
  */
+//tag::class[]
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class VisitBean {
     private Logger logger = Logger.getLogger(getClass().getName());
-    private int visits = 0;
+    private int visits = 0; // <1>
 
     @PostConstruct
     public void initialized(){
-        logger.info("Visit bean initialized...");
+        logger.info("Visit bean initialized..."); // <2>
     }
 
     @PreDestroy
     public void willBeDestroyed(){
-        logger.info("Visit bean will be terminated...");
+        logger.info("Visit bean will be terminated..."); // <2>
     }
 
-    @Lock(LockType.WRITE)
+    @Lock(LockType.WRITE) // <3>
     public int increment() {
         return visits++;
     }
 
-    @Lock(LockType.READ)
+    @Lock(LockType.READ) // <3>
     public int count() {
         return visits;
     }
 }
+//end::class[]

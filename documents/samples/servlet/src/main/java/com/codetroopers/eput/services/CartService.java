@@ -26,8 +26,9 @@ import java.util.List;
 /**
  * Created by cgatay on 01/02/16.
  */
-@Stateful
-@SessionScoped
+//tag::class[]
+@Stateful // <1>
+@SessionScoped // <2>
 public class CartService implements Serializable {
 
     @Inject
@@ -42,6 +43,7 @@ public class CartService implements Serializable {
     public List<String> addItemToCart(String item) {
         itemPriceService.checkPrice(item);
         this.cartContent.add(item);
-        return this.cartContent;
+        return this.cartContent; // <3>
     }
 }
+//end::class[]

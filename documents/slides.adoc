@@ -13,6 +13,7 @@
 :source-highlighter: pygments
 :split:
 :imagesdir: ./images
+:icons: font
 
 == Agenda
  * Java vs Java EE
@@ -403,13 +404,19 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServletNoIoC.ja
 -----
 include::samples/servlet/src/main/java/com/codetroopers/eput/services/UserService.java[tags=class]
 -----
+<1> Injection d'un UserDAO
 
 <<<
 
+[cols="6a,^.^1a"]
+|===
+|
 [source,java]
 -----
 include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[tags=class]
 -----
+| <1> Injection du UserService
+|===
 
 <<<
 
@@ -442,6 +449,15 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 
 *Exemple* : récupération des promotions du jour
 
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/services/UUIDService.java[tags=class]
+-----
+<1> Bean sans état
+<2> Génération d'un identifiant
+
 == Avec état
 
  * annotation `@Stateful`
@@ -450,6 +466,18 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 
 *Exemple* : panier d'achat e-commerce
 
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/services/CartService.java[tags=class]
+-----
+[.right_list]
+<1> Bean avec état
+<2> attaché à la session utilisateur
+<3> contenu du panier par utilisateur
+
+
 == Singleton
 
  * annotation `@Singleton`
@@ -457,6 +485,17 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
  * doit être le même pour tous les utilisateurs
 
 *Exemple* : compteur de visiteurs
+
+<<<
+
+[source,java]
+-----
+include::samples/servlet/src/main/java/com/codetroopers/eput/domain/VisitBean.java[tags=class]
+-----
+[.right_list]
+<1> variable partagée
+<2> traces sur la création / destruction
+<3> verrous en lecture / écriture
 
 == Servlet
 
@@ -467,6 +506,8 @@ include::samples/servlet/src/main/java/com/codetroopers/eput/UserServlet.java[ta
 /!\ JavaEE 7 : appels réactifs possibles `asyncSupported`
 
 == JavaServer Pages
+
+TODOTODOTODOTODO SAMPLE
 
  * ensemble d'outils pour décrire une page HTML
  * écriture de XML

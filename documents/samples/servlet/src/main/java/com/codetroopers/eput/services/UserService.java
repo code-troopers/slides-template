@@ -30,7 +30,7 @@ import java.util.List;
 @Stateless
 public class UserService {
     @Inject
-    public UserDAO userDAO;
+    public UserDAO userDAO; // <1>
 
     public List<User> all(){
         return userDAO.all();

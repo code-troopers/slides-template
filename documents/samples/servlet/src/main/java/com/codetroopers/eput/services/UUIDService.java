@@ -22,10 +22,12 @@ import java.util.UUID;
 /**
  * Created by cgatay on 01/02/16.
  */
-@Stateless
+//tag::class[]
+@Stateless // <1>
 public class UUIDService {
 
     public String makeUUID(){
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString(); // <2>
     }
 }
+//end::class[]
