@@ -35,5 +35,9 @@ public class UserService {
     public List<User> all(){
         return userDAO.all();
     }
+
+    public User create(){
+        return userDAO.create();
+    }
 }
 //end::class[]

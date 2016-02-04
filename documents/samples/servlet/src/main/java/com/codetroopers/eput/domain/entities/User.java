@@ -16,15 +16,19 @@
 
 package com.codetroopers.eput.domain.entities;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by cgatay on 19/01/16.
  */
 //tag::class[]
-@Entity(name="user")
+@Entity
+@Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue
+    public Long id;
     @NotNull
     public String name;
     @NotNull
@@ -33,6 +37,9 @@ public class User {
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public User() {
     }
 }
 //end::class[]

@@ -612,11 +612,12 @@ A voir simplement en action là : http://192.168.75.128:9080/2016-javaee-servlet
 
 == TP + CC
 
- * mini projet à 2 -> 4
+ * mini projet à 2
  * base de travail commune à tous
  ** squelette fonctionnel
  ** sujet identique
  ** 1 TP -> 1 ajout fonctionnel
+ ** max 1h de travail entre les TPs
  * notation à l'issue de la dernière séance
 
 == Références

@@ -52,5 +52,14 @@ public class UserServlet extends HttpServlet{
         });
     }
     //end::get[]
+
+
+    @Override
+    //tag::post[]
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        userService.create();
+        resp.setStatus(HttpServletResponse.SC_CREATED);
+    }
+    //end::post[]
 }
 //end::class[]
